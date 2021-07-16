@@ -13,12 +13,17 @@ public class UserService implements IUserService {
     UserMapper userMapper;
 
     @Override
-    public User findUserByName(String userName) {
-        return userMapper.findUserByName(userName);
+    public User findUserByName(String name) {
+        return userMapper.findUserByName(name);
+    }
+
+    @Override
+    public User findUserByNamAndPwd(String name, String pwd) {
+        return userMapper.findUserByNamAndPwd(name,pwd);
     }
 
     @Override
     public Integer addUser(User user) {
-        return  userMapper.addUser(user.getName(),user.getPwd(),user.getAge(),user.getSex(),user.getBirthday()) ;
+        return userMapper.addUser(user.getName(), user.getPwd(), user.getAge(), user.getSex(), user.getBirthday());
     }
 }

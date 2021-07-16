@@ -8,13 +8,13 @@ import lombok.Data;
 @ApiModel(description = "用户信息")
 public class UserDto {
     @ApiModelProperty(notes = "账户")
-    String userName;
+    String name;
     @ApiModelProperty(notes = "头像地址")
     String headUrl;
     public UserDto() {
     }
-    public UserDto(String userName, String headUrl) {
-        this.userName = userName;
+    public UserDto(String name, String headUrl) {
+        this.name = name;
         this.headUrl = headUrl;
     }
 }

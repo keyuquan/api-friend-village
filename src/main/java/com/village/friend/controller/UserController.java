@@ -1,9 +1,9 @@
 package com.village.friend.controller;
 
+import com.village.friend.dto.request.LoginDto;
 import com.village.friend.dto.request.RegisterDto;
 import com.village.friend.dto.response.BaseResponse;
 import com.village.friend.dto.response.MsgCodeEnum;
-import com.village.friend.dto.response.ResponseBase;
 import com.village.friend.dto.response.UserDto;
 import com.village.friend.entity.User;
 import com.village.friend.service.impl.UserService;
@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Map;
-
 @RestController
 @RequestMapping("/api/user")
 @Api(tags = "用户模块")
@@ -27,24 +25,31 @@ public class UserController extends BaseController {
     @ApiOperation(value = "注册", httpMethod = "POST")
     @RequestMapping(value = "/register")
     public BaseResponse<UserDto> register(RegisterDto param) {
-        User user = new User(param.getUserName(), param.getPwd(), param.getAge(), param.getSex(), param.getBirthday());
+        User user = new User(param.getName(), param.getPwd(), param.getAge(), param.getSex(), param.getBirthday());
         User userByName = userService.findUserByName(user.getName());
         // 账户已存在
         if (userByName != null) {
-            return new BaseResponse<>(MsgCodeEnum.REGISTER_EXISTING_ACCOUNT, null);
+            return retResp(MsgCodeEnum.REGISTER_EXISTING_ACCOUNT, null);
         }
         Integer count = userService.addUser(user);
         // 数据库插入失败
         if (count < 1) {
-            return retError(null);
+            return retResp(MsgCodeEnum.SYSTEM_INNER_ERROR, null);
         }
-        return retSuccess(new UserDto(user.getName(), user.getBirthday()));
+        UserDto userDto = new UserDto(user.getName(), user.getBirthday());
+        return retResp(MsgCodeEnum.SUCCESS, userDto);
     }
 
     @ApiOperation(value = "登录", httpMethod = "POST")
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ResponseBase<UserDto> login(@RequestBody Map<String, String> param) {
-        return null;
+    public BaseResponse<UserDto> login(@RequestBody LoginDto param) {
+        User userByName = userService.findUserByNamAndPwd(param.getName(), param.getPwd());
+        if (userByName == null) {
+            return retResp(MsgCodeEnum.LOGIN_ERROR_PWD, null);
+        }
+        UserDto userDto = new UserDto(userByName.getName(), userByName.getBirthday());
+        return retResp(MsgCodeEnum.SUCCESS, userDto);
+
     }
 
 

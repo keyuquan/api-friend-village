@@ -17,6 +17,9 @@ public class User {
         this.sex = sex;
         this.birthday = birthday;
     }
+
+    public User() {
+    }
 }
 
 

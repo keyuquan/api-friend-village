@@ -9,7 +9,7 @@ import lombok.Data;
 @ApiModel(description = "注册请求")
 public class RegisterDto {
     @ApiModelProperty(notes = "账户")
-    String userName;
+    String name;
     @ApiModelProperty(notes = "密码")
     String pwd;
     @ApiModelProperty(notes = "电话")
@@ -20,4 +20,5 @@ public class RegisterDto {
     Integer age;
     @ApiModelProperty(notes = "生日")
     String birthday;
+    public RegisterDto() {}
 }
