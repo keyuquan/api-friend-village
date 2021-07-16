@@ -11,8 +11,14 @@ public class UserService implements IUserService {
 
     @Autowired
     UserMapper userMapper;
+
     @Override
     public User findUserByName(String userName) {
         return userMapper.findUserByName(userName);
+    }
+
+    @Override
+    public User addUser(User user) {
+        return  userMapper.addUser(user.getName(),user.getPwd(),user.getAge(),user.getSex(),user.getBirthday()) ;
     }
 }

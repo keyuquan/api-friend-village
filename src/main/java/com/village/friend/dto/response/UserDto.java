@@ -11,5 +11,10 @@ public class UserDto {
     String userName;
     @ApiModelProperty(notes = "头像地址")
     String headUrl;
-
+    public UserDto() {
+    }
+    public UserDto(String userName, String headUrl) {
+        this.userName = userName;
+        this.headUrl = headUrl;
+    }
 }

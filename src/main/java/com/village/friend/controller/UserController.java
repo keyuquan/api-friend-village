@@ -1,6 +1,8 @@
 package com.village.friend.controller;
 
+import com.village.friend.dto.request.RegisterDto;
 import com.village.friend.dto.response.BaseResponse;
+import com.village.friend.dto.response.MsgCodeEnum;
 import com.village.friend.dto.response.ResponseBase;
 import com.village.friend.dto.response.UserDto;
 import com.village.friend.entity.User;
@@ -24,13 +26,15 @@ public class UserController extends BaseController {
 
     @ApiOperation(value = "注册", httpMethod = "POST")
     @RequestMapping(value = "/register")
-    public BaseResponse<UserDto> register() {
-        User user = userService.findUserByName("kequan");
-        UserDto userDto = new UserDto();
-        userDto.setUserName(user.getName());
-        userDto.setHeadUrl("www.baidu.com");
-
-        return retSuccess(userDto);
+    public BaseResponse<UserDto> register(RegisterDto param) {
+        User user = new User(param.getUserName(), param.getPwd(), param.getAge(), param.getSex(), param.getBirthday());
+        User userByName = userService.findUserByName(user.getName());
+        // 账户已存在
+        if (userByName != null) {
+            return new BaseResponse<>(MsgCodeEnum.REGISTER_EXISTING_ACCOUNT, null);
+        }
+        User user1 = userService.addUser(user);
+        return retSuccess(new UserDto(user.getName(), user.getBirthday()));
     }
 
     @ApiOperation(value = "登录", httpMethod = "POST")
