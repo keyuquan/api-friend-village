@@ -1,0 +1,8 @@
+server:
+  port: 8089
+spring:
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://47.115.141.183:3306/friend?useUnicode=true&characterEncoding=utf8
+    username: root
+    password: baoliang
