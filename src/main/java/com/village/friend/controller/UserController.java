@@ -33,7 +33,11 @@ public class UserController extends BaseController {
         if (userByName != null) {
             return new BaseResponse<>(MsgCodeEnum.REGISTER_EXISTING_ACCOUNT, null);
         }
-        User user1 = userService.addUser(user);
+        Integer count = userService.addUser(user);
+        // 数据库插入失败
+        if (count < 1) {
+            return retError(null);
+        }
         return retSuccess(new UserDto(user.getName(), user.getBirthday()));
     }
 

@@ -18,7 +18,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public User addUser(User user) {
+    public Integer addUser(User user) {
         return  userMapper.addUser(user.getName(),user.getPwd(),user.getAge(),user.getSex(),user.getBirthday()) ;
     }
 }
