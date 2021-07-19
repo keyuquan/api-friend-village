@@ -5,7 +5,7 @@ import com.village.friend.dto.response.BaseResponse;
 import com.village.friend.dto.response.MsgCodeEnum;
 
 public class BaseController<T> {
-    public BaseResponse<T> retResp(MsgCodeEnum msgCodeEnum, T t) {
+    public BaseResponse<T> resp(MsgCodeEnum msgCodeEnum, T t) {
         return new BaseResponse<>(msgCodeEnum, t);
     }
 }

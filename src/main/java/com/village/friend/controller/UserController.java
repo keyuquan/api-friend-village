@@ -29,15 +29,15 @@ public class UserController extends BaseController {
         User userByName = userService.findUserByName(user.getName());
         // 账户已存在
         if (userByName != null) {
-            return retResp(MsgCodeEnum.REGISTER_EXISTING_ACCOUNT, null);
+            return resp(MsgCodeEnum.REGISTER_EXISTING_ACCOUNT, null);
         }
         Integer count = userService.addUser(user);
         // 数据库插入失败
         if (count < 1) {
-            return retResp(MsgCodeEnum.SYSTEM_INNER_ERROR, null);
+            return resp(MsgCodeEnum.SYSTEM_INNER_ERROR, null);
         }
         UserDto userDto = new UserDto(user.getName(), user.getBirthday());
-        return retResp(MsgCodeEnum.SUCCESS, userDto);
+        return resp(MsgCodeEnum.SUCCESS, userDto);
     }
 
     @ApiOperation(value = "登录", httpMethod = "POST")
@@ -45,11 +45,10 @@ public class UserController extends BaseController {
     public BaseResponse<UserDto> login(@RequestBody LoginDto param) {
         User userByName = userService.findUserByNamAndPwd(param.getName(), param.getPwd());
         if (userByName == null) {
-            return retResp(MsgCodeEnum.LOGIN_ERROR_PWD, null);
+            return resp(MsgCodeEnum.LOGIN_ERROR_PWD, null);
         }
         UserDto userDto = new UserDto(userByName.getName(), userByName.getBirthday());
-        return retResp(MsgCodeEnum.SUCCESS, userDto);
-
+        return resp(MsgCodeEnum.SUCCESS, userDto);
     }
 
 

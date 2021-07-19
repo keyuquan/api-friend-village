@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -32,8 +32,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
-            <scope>runtime</scope>
-            <optional>true</optional>
+            <version>2.5.2</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -97,6 +96,16 @@
             <artifactId>commons-lang</artifactId>
             <version>2.4</version>
         </dependency>
+        <dependency>
+            <groupId>com.easemob.im</groupId>
+            <artifactId>im-sdk-core</artifactId>
+            <version>0.2.5</version>
+        </dependency>
+        <dependency>
+            <groupId>com.auth0</groupId>
+            <artifactId>java-jwt</artifactId>
+            <version>3.8.2</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -104,6 +113,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.0.3.RELEASE</version>
                 <configuration>
                     <excludes>
                         <exclude>
@@ -112,79 +122,19 @@
                         </exclude>
                     </excludes>
                     <classifier>${repackage.classifier}</classifier>
-                    <image>
-                        <builder>paketobuildpacks/builder:tiny</builder>
-                        <env>
-                            <BP_NATIVE_IMAGE>true</BP_NATIVE_IMAGE>
-                        </env>
-                    </image>
                 </configuration>
             </plugin>
-
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.7.0</version>
+                <configuration>
+                    <source>8</source>
+                    <target>8</target>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
-    <repositories>
-        <repository>
-            <id>spring-releases</id>
-            <name>Spring Releases</name>
-            <url>https://repo.spring.io/release</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
-    <pluginRepositories>
-        <pluginRepository>
-            <id>spring-releases</id>
-            <name>Spring Releases</name>
-            <url>https://repo.spring.io/release</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </pluginRepository>
-    </pluginRepositories>
 
-    <profiles>
-        <profile>
-            <id>native</id>
-            <properties>
-                <repackage.classifier>exec</repackage.classifier>
-                <native-buildtools.version>0.9.1</native-buildtools.version>
-            </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>org.graalvm.buildtools</groupId>
-                    <artifactId>junit-platform-native</artifactId>
-                    <version>${native-buildtools.version}</version>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.graalvm.buildtools</groupId>
-                        <artifactId>native-maven-plugin</artifactId>
-                        <version>${native-buildtools.version}</version>
-                        <executions>
-                            <execution>
-                                <id>test-native</id>
-                                <phase>test</phase>
-                                <goals>
-                                    <goal>test</goal>
-                                </goals>
-                            </execution>
-                            <execution>
-                                <id>build-native</id>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>build</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 
 </project>
