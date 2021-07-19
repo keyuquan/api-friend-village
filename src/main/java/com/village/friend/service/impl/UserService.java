@@ -35,7 +35,7 @@ public class UserService implements IUserService {
 
     @Override
     public BaseResponse<UserDto> login(LoginDto param) {
-        User user = userMapper.findUserByNamAndPwd(param.getUsername(), param.getUsername());
+        User user = userMapper.findUserByNamAndPwd(param.getUsername(), param.getPassword());
         // 账户和密码错误
         if (user == null) {
             return new BaseResponse(MsgCodeEnum.LOGIN_ERROR_PWD, null);

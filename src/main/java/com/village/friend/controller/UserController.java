@@ -3,9 +3,7 @@ package com.village.friend.controller;
 import com.village.friend.dto.request.LoginDto;
 import com.village.friend.dto.request.RegisterDto;
 import com.village.friend.dto.response.BaseResponse;
-import com.village.friend.dto.response.MsgCodeEnum;
 import com.village.friend.dto.response.UserDto;
-import com.village.friend.entity.User;
 import com.village.friend.service.impl.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -23,7 +21,7 @@ public class UserController extends BaseController {
     private UserService userService;
 
     @ApiOperation(value = "注册", httpMethod = "POST")
-    @RequestMapping(value = "/register")
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
     public BaseResponse<UserDto> register(RegisterDto param) {
         return userService.register(param);
     }

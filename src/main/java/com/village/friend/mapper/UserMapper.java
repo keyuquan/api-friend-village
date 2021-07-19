@@ -11,7 +11,7 @@ public interface UserMapper {
     @Select("select * from user where username = #{username} ")
     User findUserByName(String username);
 
-    @Select("select * from user where username = #{username} and  password= #{password}")
+    @Select("select username,password,nickname,avatarurl,phone,mail,gender,birth,sign,ext from user where username = #{username} and  password= #{password}")
     User findUserByNamAndPwd(String username, String password);
 
     @Insert("insert into  user(username,password,nickname,avatarurl,phone,mail,gender,birth,sign,ext) values (#{username},#{password},#{nickname},#{avatarurl},#{phone},#{mail},#{gender},#{birth},#{sign},#{ext})")
