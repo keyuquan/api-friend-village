@@ -8,13 +8,22 @@ import lombok.Data;
 @ApiModel(description = "用户信息")
 public class UserDto {
     @ApiModelProperty(notes = "账户")
-    String name;
+    String username;
     @ApiModelProperty(notes = "头像地址")
-    String headUrl;
+    String avatarurl;
+    @ApiModelProperty(notes = "昵称")
+    String nickname;
+    @ApiModelProperty(notes = "token")
+    String token;
+
     public UserDto() {
+
     }
-    public UserDto(String name, String headUrl) {
-        this.name = name;
-        this.headUrl = headUrl;
+
+    public UserDto(String username, String nickname,  String avatarurl,String token) {
+        this.username = username;
+        this.avatarurl = avatarurl;
+        this.nickname = nickname;
+        this.token = token;
     }
 }

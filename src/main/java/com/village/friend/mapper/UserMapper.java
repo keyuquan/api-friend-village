@@ -8,13 +8,13 @@ import org.apache.ibatis.annotations.Select;
 @Mapper
 public interface UserMapper {
 
-    @Select("select * from user where name = #{name} ")
-    User findUserByName(String name);
-    @Select("select * from user where name = #{name} and  pwd= #{pwd}")
-    User findUserByNamAndPwd(String name,String pwd);
+    @Select("select * from user where username = #{username} ")
+    User findUserByName(String username);
 
+    @Select("select * from user where username = #{username} and  password= #{password}")
+    User findUserByNamAndPwd(String username, String password);
 
-    @Insert("insert into  user(name,pwd,age,sex,birthday) values(#{name},#{pwd},#{age},#{sex},#{birthday})")
-    Integer addUser(String name, String pwd, Integer age, Integer sex, String birthday);
+    @Insert("insert into  user(username,password,nickname,avatarurl,phone,mail,gender,birth,sign,ext) values (#{username},#{password},#{nickname},#{avatarurl},#{phone},#{mail},#{gender},#{birth},#{sign},#{ext})")
+    Integer addUser(String username, String password, String nickname, String avatarurl, String phone, String mail, Integer gender, String birth, String sign, String ext);
 
 }

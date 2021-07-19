@@ -8,15 +8,15 @@ import lombok.Data;
 @ApiModel(description = "登录请求")
 public class LoginDto {
     @ApiModelProperty(notes = "账户")
-    String name;
+    String username;
     @ApiModelProperty(notes = "密码")
-    String pwd;
+    String password;
 
     public LoginDto() {
     }
 
-    public LoginDto(String name, String pwd) {
-        this.name = name;
-        this.pwd = pwd;
+    public LoginDto(String username, String password) {
+        this.username = username;
+        this.password = password;
     }
 }
