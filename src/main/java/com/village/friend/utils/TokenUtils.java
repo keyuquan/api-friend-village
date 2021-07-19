@@ -3,6 +3,7 @@ package com.village.friend.utils;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.interfaces.DecodedJWT;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -43,12 +44,19 @@ public class TokenUtils {
         return token;
     }
 
-    public static boolean verify(String token) {
+    public static boolean verify(String username, String token) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(TOKEN_SECRET);
             JWTVerifier verifier = JWT.require(algorithm).build();
-            verifier.verify(token);
-            return true;
+
+            DecodedJWT verify = verifier.verify(token);
+            String usernameJWT = verify.getClaim("username").asString();
+            if (username != null && username.equals(usernameJWT)) {
+                return true;
+            }
+
+            return false;
+
         } catch (Exception e) {
             return false;
         }
@@ -59,7 +67,7 @@ public class TokenUtils {
         String password = "123";
         String token = token(username, password);
         System.out.println(token);
-        boolean b = verify("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXNzd29yZCI6IjEyMyIsInVzZXJuYW1lIjoiemhhbmdzYW4ifQ.yQXy6t55tdABMNGsZUstd4M4idtWCvwrQgwRSUd4sYM");
+        boolean b = verify("zhangsan", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXNzd29yZCI6IjEyMyIsInVzZXJuYW1lIjoiemhhbmdzYW4ifQ.yQXy6t55tdABMNGsZUstd4M4idtWCvwrQgwRSUd4sYM");
         System.out.println(b);
     }
 }

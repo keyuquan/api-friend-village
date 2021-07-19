@@ -14,10 +14,12 @@ import lombok.Data;
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @ApiModel(description = "数据请求对象")
-public class BaseRequest {
-    /**
-     * 返回码
-     */
+public class AuthRequest {
+
+    @ApiModelProperty(notes = "账户")
+    String username;
+
     @ApiModelProperty(notes = "token")
     private String token;
+
 }

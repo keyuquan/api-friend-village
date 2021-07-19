@@ -1,6 +1,6 @@
 package com.village.friend.service.impl;
 
-import com.village.friend.dto.request.BaseRequest;
+import com.village.friend.dto.request.AuthRequest;
 import com.village.friend.dto.request.LoginDto;
 import com.village.friend.dto.request.RegisterDto;
 import com.village.friend.dto.request.TestDto;
@@ -54,7 +54,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public boolean auth(BaseRequest param) {
-        return TokenUtils.verify(param.getToken());
+    public boolean auth(AuthRequest param) {
+        return TokenUtils.verify(param.getUsername(), param.getToken());
     }
 }

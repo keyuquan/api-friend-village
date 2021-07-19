@@ -35,7 +35,7 @@ public class UserController extends BaseController {
     }
 
     @ApiOperation(value = "token测试", httpMethod = "POST")
-    @RequestMapping(value = "/login2", method = RequestMethod.POST)
+    @RequestMapping(value = "/testToke", method = RequestMethod.POST)
     public BaseResponse<UserDto> testToken(@RequestBody TestDto param) {
         boolean auth = userService.auth(param);
         if (!auth) {

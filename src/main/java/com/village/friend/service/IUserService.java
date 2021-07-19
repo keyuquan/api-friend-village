@@ -1,6 +1,6 @@
 package com.village.friend.service;
 
-import com.village.friend.dto.request.BaseRequest;
+import com.village.friend.dto.request.AuthRequest;
 import com.village.friend.dto.request.LoginDto;
 import com.village.friend.dto.request.RegisterDto;
 import com.village.friend.dto.request.TestDto;
@@ -13,5 +13,5 @@ public interface IUserService {
     BaseResponse<UserDto> register(RegisterDto param);
     BaseResponse<UserDto> login(LoginDto param);
     BaseResponse<UserDto> test(TestDto param);
-    boolean auth(BaseRequest param);
+    boolean auth(AuthRequest param);
 }
