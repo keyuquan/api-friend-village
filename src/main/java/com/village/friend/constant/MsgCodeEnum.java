@@ -24,7 +24,7 @@ public enum MsgCodeEnum {
     //登录相关
     LOGIN_ERROR_PWD("2001", "账户或者密码错误"),
     //auth 相关
-    Auth_TIME_OUT("2003", "登录超时,请重新登录");
+    Auth_TIME_OUT("401", "登录超时,请重新登录");
 
     private String code;
     private String msg;
