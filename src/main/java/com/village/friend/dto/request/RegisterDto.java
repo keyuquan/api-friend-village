@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 
 @ApiModel(description = "注册请求")
-public class RegisterDto extends User {
+public class RegisterDto {
     @ApiModelProperty(notes = "账户")
     String username;
     @ApiModelProperty(notes = "密码")

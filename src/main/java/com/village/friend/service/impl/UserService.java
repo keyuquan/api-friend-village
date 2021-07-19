@@ -1,13 +1,16 @@
 package com.village.friend.service.impl;
 
+import com.village.friend.dto.request.BaseRequest;
 import com.village.friend.dto.request.LoginDto;
 import com.village.friend.dto.request.RegisterDto;
+import com.village.friend.dto.request.TestDto;
 import com.village.friend.dto.response.BaseResponse;
-import com.village.friend.dto.response.MsgCodeEnum;
+import com.village.friend.constant.MsgCodeEnum;
 import com.village.friend.dto.response.UserDto;
 import com.village.friend.entity.User;
 import com.village.friend.mapper.UserMapper;
 import com.village.friend.service.IUserService;
+import com.village.friend.utils.TokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +27,7 @@ public class UserService implements IUserService {
         if (userByName != null) {
             return new BaseResponse(MsgCodeEnum.REGISTER_EXISTING_ACCOUNT, null);
         }
-        Integer integer = userMapper.addUser(param.getUsername(), param.getPassword(), param.getNickname(), param.getAvatarurl(), param.getPhone(), param.getMail(), param.getGender(), param.getBirth(), param.getSign(), param.getExt());
+        Integer integer = userMapper.addUser(param.getUsername(), param.getPassword(), param.getNickname(), param.getAvatarurl(), param.getPhone(), param.getMail(), param.getGender(), param.getBirth(), "", "");
         // 数据库插入失败
         if (integer < 1) {
             return new BaseResponse(MsgCodeEnum.SYSTEM_INNER_ERROR, null);
@@ -36,11 +39,22 @@ public class UserService implements IUserService {
     @Override
     public BaseResponse<UserDto> login(LoginDto param) {
         User user = userMapper.findUserByNamAndPwd(param.getUsername(), param.getPassword());
-        // 账户和密码错误
+        // 账户或者密码错误
         if (user == null) {
             return new BaseResponse(MsgCodeEnum.LOGIN_ERROR_PWD, null);
         }
-        UserDto u = new UserDto(user.getUsername(), user.getNickname(), user.getAvatarurl(), "");
+        String token = TokenUtils.token(user.getUsername(), user.getPassword());
+        UserDto u = new UserDto(user.getUsername(), user.getNickname(), user.getAvatarurl(), token);
         return new BaseResponse(MsgCodeEnum.SUCCESS, u);
+    }
+
+    @Override
+    public BaseResponse<UserDto> test(TestDto param) {
+        return new BaseResponse(MsgCodeEnum.SUCCESS, null);
+    }
+
+    @Override
+    public boolean auth(BaseRequest param) {
+        return TokenUtils.verify(param.getToken());
     }
 }

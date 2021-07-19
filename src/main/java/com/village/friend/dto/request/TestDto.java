@@ -8,17 +8,14 @@ import lombok.Data;
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @ApiModel(description = "登录请求")
-public class LoginDto {
+public class TestDto extends BaseRequest {
     @ApiModelProperty(notes = "账户")
     String username;
-    @ApiModelProperty(notes = "密码")
-    String password;
 
-    public LoginDto() {
+    public TestDto() {
     }
 
-    public LoginDto(String username, String password) {
+    public TestDto(String username) {
         this.username = username;
-        this.password = password;
     }
 }

@@ -3,7 +3,6 @@ package com.village.friend.utils;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.auth0.jwt.interfaces.DecodedJWT;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -15,9 +14,9 @@ import java.util.Map;
  **/
 public class TokenUtils {
     //设置过期时间
-    private static final long EXPIRE_DATE = 30 * 60 * 100000;
+    private static final long EXPIRE_DATE = 7 * 24 * 60 * 60 * 1000;
     //token秘钥
-    private static final String TOKEN_SECRET = "ZCfasfhuaUUHufguGuwu2020BQWE";
+    private static final String TOKEN_SECRET = "YXA65t40PgMxozp6X6PIKnoR3mInxAI";
 
     public static String token(String username, String password) {
 
@@ -31,11 +30,11 @@ public class TokenUtils {
             Map<String, Object> header = new HashMap<>();
             header.put("typ", "JWT");
             header.put("alg", "HS256");
-            //携带username，password信息，生成签名
             token = JWT.create()
                     .withHeader(header)
                     .withClaim("username", username)
-                    .withClaim("password", password).withExpiresAt(date)
+                    .withClaim("password", password)
+                    .withExpiresAt(date) // 设置超时时间
                     .sign(algorithm);
         } catch (Exception e) {
             e.printStackTrace();
@@ -45,14 +44,12 @@ public class TokenUtils {
     }
 
     public static boolean verify(String token) {
-
         try {
             Algorithm algorithm = Algorithm.HMAC256(TOKEN_SECRET);
             JWTVerifier verifier = JWT.require(algorithm).build();
             verifier.verify(token);
             return true;
         } catch (Exception e) {
-            e.printStackTrace();
             return false;
         }
     }
@@ -62,7 +59,7 @@ public class TokenUtils {
         String password = "123";
         String token = token(username, password);
         System.out.println(token);
-        boolean b = verify("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.yJwYXNzd29yZCI6IjEyMyIsImV4cCI6MTYyNjY5NjIxNiwidXNlcm5hbWUiOiJ6aGFuZ3NhbiJ9.9qzETWYPUH7ogEzqbLB6k1jhAL7Y2sI9H9G8eVYQ0pY");
+        boolean b = verify("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXNzd29yZCI6IjEyMyIsInVzZXJuYW1lIjoiemhhbmdzYW4ifQ.yQXy6t55tdABMNGsZUstd4M4idtWCvwrQgwRSUd4sYM");
         System.out.println(b);
     }
 }
