@@ -121,7 +121,8 @@
                             <artifactId>lombok</artifactId>
                         </exclude>
                     </excludes>
-                    <classifier>${repackage.classifier}</classifier>
+                    <executable>true</executable>
+                    <mainClass>com.web.boom.BoomWebApplication</mainClass>
                 </configuration>
             </plugin>
             <plugin>
