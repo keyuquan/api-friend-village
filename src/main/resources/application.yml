@@ -3,6 +3,6 @@ server:
 spring:
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://47.115.141.183:3306/friend?useUnicode=true&characterEncoding=utf8
+    url: jdbc:mysql://47.107.92.245:3306/friend?useUnicode=true&characterEncoding=utf8
     username: root
-    password: baoliang
+    password: W4b4QDY84jnB8Lwo
