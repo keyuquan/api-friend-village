@@ -1,5 +1,4 @@
 package com.village.friend.controller;
-
 import com.village.friend.constant.MsgCodeEnum;
 import com.village.friend.dto.response.BaseResponse;
 
