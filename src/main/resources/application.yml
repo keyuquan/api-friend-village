@@ -10,3 +10,7 @@ im:
   appKey: 1148210717097900#demo
   clientId: YXA6go3iD_7ORWqHW17YER8M5Q
   clientSecret: YXA65t40PgMxozp6X6PIKnoR3mInxAI
+  defaultPwd:123456
+header:
+  boy: https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fc-ssl.duitang.com%2Fuploads%2Fitem%2F202005%2F06%2F20200506110929_iajqi.jpg&refer=http%3A%2F%2Fc-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1630912301&t=0d40a204401efddcff3f115c471bb801
+  girl: http://pics7.baidu.com/feed/94cad1c8a786c917f9877b2476aa2ac93ac75740.jpeg?token=70f708b42ca1dbbb6faf59919177ba44

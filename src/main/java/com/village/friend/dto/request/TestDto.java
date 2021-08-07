@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @ApiModel(description = "登录请求")
-public class TestDto extends AuthRequest {
+public class TestDto extends AuthRequestDto {
 
     public TestDto() {
     }

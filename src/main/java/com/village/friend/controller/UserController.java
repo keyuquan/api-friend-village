@@ -1,14 +1,12 @@
 package com.village.friend.controller;
 
-import com.village.friend.constant.MsgCodeEnum;
-import com.village.friend.dto.request.SendAuthCodeDto;
 import com.village.friend.dto.request.LoginDto;
 import com.village.friend.dto.request.RegisterDto;
-import com.village.friend.dto.request.TestDto;
-import com.village.friend.dto.response.SendAuthCodeResDto;
+import com.village.friend.dto.request.SendAuthCodeDto;
 import com.village.friend.dto.response.BaseResponse;
 import com.village.friend.dto.response.LoginResDto;
-import com.village.friend.dto.response.UserDto;
+import com.village.friend.dto.response.RegisterResDto;
+import com.village.friend.dto.response.SendAuthCodeResDto;
 import com.village.friend.service.impl.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -39,18 +37,9 @@ public class UserController extends BaseController {
 
     @ApiOperation(value = "注册", httpMethod = "POST")
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public BaseResponse<UserDto> register(@RequestBody RegisterDto param) {
+    public BaseResponse<RegisterResDto> register(@RequestBody RegisterDto param) {
         return userService.register(param);
     }
 
-    @ApiOperation(value = "token测试", httpMethod = "POST")
-    @RequestMapping(value = "/testToke", method = RequestMethod.POST)
-    public BaseResponse<UserDto> testToken(@RequestBody TestDto param) {
-        boolean auth = userService.auth(param);
-        if (!auth) {
-            return resp(MsgCodeEnum.Auth_TIME_OUT, null);
-        }
-        return userService.test(param);
-    }
 
 }

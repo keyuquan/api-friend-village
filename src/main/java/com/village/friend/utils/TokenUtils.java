@@ -62,5 +62,12 @@ public class TokenUtils {
         }
     }
 
-
+    public static void main(String[] args) {
+        String username = "zhangsan";
+        String password = "123";
+        String token = token(username, password);
+        System.out.println(token);
+        boolean b = verify("zhangsan", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXNzd29yZCI6IjEyMyIsInVzZXJuYW1lIjoiemhhbmdzYW4ifQ.yQXy6t55tdABMNGsZUstd4M4idtWCvwrQgwRSUd4sYM");
+        System.out.println(b);
+    }
 }
