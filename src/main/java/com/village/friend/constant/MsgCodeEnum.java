@@ -15,14 +15,13 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 public enum MsgCodeEnum {
-
     // 全局
     SUCCESS("200", "ok"),
     SYSTEM_INNER_ERROR("404", "系统内部错误"),
-    // 注册相关
+    // 注册登录相关
     REGISTER_EXISTING_ACCOUNT("1001", "账户已存在"),
-    //登录相关
-    LOGIN_ERROR_PWD("2001", "账户或者密码错误"),
+    LOGIN_BEFORE_REGISTER("2001", "未注册"),
+    LOGIN_AUTH_CODE_ERROR("2002", "验证码错误"),
     //auth 相关
     Auth_TIME_OUT("401", "登录超时,请重新登录");
 

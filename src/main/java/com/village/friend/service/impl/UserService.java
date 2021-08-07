@@ -1,15 +1,16 @@
 package com.village.friend.service.impl;
 
-import com.village.friend.dto.request.AuthRequest;
-import com.village.friend.dto.request.LoginDto;
-import com.village.friend.dto.request.RegisterDto;
-import com.village.friend.dto.request.TestDto;
+import com.village.friend.dto.request.*;
+import com.village.friend.dto.response.SendAuthCodeResDto;
 import com.village.friend.dto.response.BaseResponse;
 import com.village.friend.constant.MsgCodeEnum;
+import com.village.friend.dto.response.LoginResDto;
 import com.village.friend.dto.response.UserDto;
 import com.village.friend.entity.User;
+import com.village.friend.mapper.AuthCodeMapper;
 import com.village.friend.mapper.UserMapper;
 import com.village.friend.service.IUserService;
+import com.village.friend.utils.MathUtils;
 import com.village.friend.utils.TokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,21 @@ public class UserService implements IUserService {
 
     @Autowired
     UserMapper userMapper;
+
+    @Autowired
+    AuthCodeMapper authCodeMapper;
+
+
+    @Override
+    public BaseResponse<SendAuthCodeResDto> sendAuthCode(SendAuthCodeDto param) {
+        // 生成随机验证码
+        // String authCode = MathUtils.getAuthCode() + "";
+        String authCode = "1234";
+        //  发送验证码 @TODO
+        // 把验证码入库
+        authCodeMapper.addAuthCode(param.getPhone(), authCode, TokenUtils.token(param.getPhone(), authCode));
+        return new BaseResponse(MsgCodeEnum.SUCCESS, null);
+    }
 
     @Override
     public BaseResponse<UserDto> register(RegisterDto param) {
@@ -37,15 +53,15 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public BaseResponse<UserDto> login(LoginDto param) {
-        User user = userMapper.findUserByNamAndPwd(param.getUsername(), param.getPassword());
-        // 账户或者密码错误
+    public BaseResponse<LoginResDto> login(LoginDto param) {
+        User user = userMapper.findUserByName(param.getUsername());
         if (user == null) {
-            return new BaseResponse(MsgCodeEnum.LOGIN_ERROR_PWD, null);
+            // 用户不存在，需要注册
+            return new BaseResponse(MsgCodeEnum.LOGIN_BEFORE_REGISTER, null);
         }
         String token = TokenUtils.token(user.getUsername(), user.getPassword());
-        UserDto u = new UserDto(user.getUsername(), user.getNickname(), user.getAvatarurl(), token);
-        return new BaseResponse(MsgCodeEnum.SUCCESS, u);
+        LoginResDto data = new LoginResDto(user.getUsername(), token);
+        return new BaseResponse(MsgCodeEnum.SUCCESS, data);
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.village.friend.dto.request;
+package com.village.friend.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.annotations.ApiModel;
@@ -7,18 +7,18 @@ import lombok.Data;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@ApiModel(description = "登录")
-public class LoginDto {
+@ApiModel(description = "登录返回信息")
+public class LoginResDto {
     @ApiModelProperty(notes = "账户")
     String username;
-    @ApiModelProperty(notes = "验证码")
-    String authCode;
+    @ApiModelProperty(notes = "token")
+    String token;
 
-    public LoginDto() {
+    public LoginResDto() {
     }
 
-    public LoginDto(String username, String authCode) {
+    public LoginResDto(String username, String token) {
         this.username = username;
-        this.authCode = authCode;
+        this.token = token;
     }
 }

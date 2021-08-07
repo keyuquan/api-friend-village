@@ -1,10 +1,13 @@
 package com.village.friend.controller;
 
 import com.village.friend.constant.MsgCodeEnum;
+import com.village.friend.dto.request.SendAuthCodeDto;
 import com.village.friend.dto.request.LoginDto;
 import com.village.friend.dto.request.RegisterDto;
 import com.village.friend.dto.request.TestDto;
+import com.village.friend.dto.response.SendAuthCodeResDto;
 import com.village.friend.dto.response.BaseResponse;
+import com.village.friend.dto.response.LoginResDto;
 import com.village.friend.dto.response.UserDto;
 import com.village.friend.service.impl.UserService;
 import io.swagger.annotations.Api;
@@ -22,16 +25,22 @@ public class UserController extends BaseController {
     @Autowired
     private UserService userService;
 
-    @ApiOperation(value = "注册", httpMethod = "POST")
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public BaseResponse<UserDto> register(@RequestBody RegisterDto param) {
-        return userService.register(param);
+    @ApiOperation(value = "发送验证码", httpMethod = "POST")
+    @RequestMapping(value = "/sendAuthCode", method = RequestMethod.POST)
+    public BaseResponse<SendAuthCodeResDto> sendAuthCode(@RequestBody SendAuthCodeDto param) {
+        return userService.sendAuthCode(param);
     }
 
     @ApiOperation(value = "登录", httpMethod = "POST")
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public BaseResponse<UserDto> login(@RequestBody LoginDto param) {
+    public BaseResponse<LoginResDto> login(@RequestBody LoginDto param) {
         return userService.login(param);
+    }
+
+    @ApiOperation(value = "注册", httpMethod = "POST")
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public BaseResponse<UserDto> register(@RequestBody RegisterDto param) {
+        return userService.register(param);
     }
 
     @ApiOperation(value = "token测试", httpMethod = "POST")

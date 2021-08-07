@@ -19,7 +19,7 @@ public class TokenUtils {
     //token秘钥
     private static final String TOKEN_SECRET = "YXA65t40PgMxozp6X6PIKnoR3mInxAI";
 
-    public static String token(String username, String password) {
+    public static String token(String username, String authCode) {
 
         String token = "";
         try {
@@ -34,7 +34,7 @@ public class TokenUtils {
             token = JWT.create()
                     .withHeader(header)
                     .withClaim("username", username)
-                    .withClaim("password", password)
+                    .withClaim("authCode", authCode)
                     .withExpiresAt(date) // 设置超时时间
                     .sign(algorithm);
         } catch (Exception e) {
@@ -62,12 +62,5 @@ public class TokenUtils {
         }
     }
 
-    public static void main(String[] args) {
-        String username = "zhangsan";
-        String password = "123";
-        String token = token(username, password);
-        System.out.println(token);
-        boolean b = verify("zhangsan", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXNzd29yZCI6IjEyMyIsInVzZXJuYW1lIjoiemhhbmdzYW4ifQ.yQXy6t55tdABMNGsZUstd4M4idtWCvwrQgwRSUd4sYM");
-        System.out.println(b);
-    }
+
 }
